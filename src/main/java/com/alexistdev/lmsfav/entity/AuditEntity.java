@@ -3,6 +3,8 @@ package com.alexistdev.lmsfav.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Temporal;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -14,6 +16,7 @@ import static jakarta.persistence.TemporalType.TIMESTAMP;
 @Getter
 @Setter
 @MappedSuperclass
+@AllArgsConstructor
 public class AuditEntity {
     @CreatedDate
     @Temporal(TIMESTAMP)
@@ -33,4 +36,24 @@ public class AuditEntity {
 
     public AuditEntity() {
     }
+
+//    public AuditEntity(Date createdAt, Date updatedAt, String createdBy, String modifiedBy) {
+//        this.createdAt = createdAt;
+//        this.updatedAt = updatedAt;
+//        this.createdBy = createdBy;
+//        this.modifiedBy = modifiedBy;
+//    }
+
+//    public static class Builder {
+//        protected Date createdAt;
+//        protected Date updatedAt;
+//        protected String createdBy;
+//        protected String modifiedBy;
+//
+//        Builder() {}
+//
+//        public AuditEntity build() {
+//            return new AuditEntity(createdAt,updatedAt,createdBy,modifiedBy);
+//        }
+//    }
 }

@@ -19,8 +19,15 @@
         <org.springframework.security.version>6.0.3</org.springframework.security.version>
         <org.projectlombok.version>1.18.26</org.projectlombok.version>
         <mysql-connector-java.version>8.0.32</mysql-connector-java.version>
+        <h2.version>2.2.220</h2.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
