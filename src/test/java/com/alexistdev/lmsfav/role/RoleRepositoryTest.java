@@ -3,6 +3,7 @@ package com.alexistdev.lmsfav.role;
 import com.alexistdev.lmsfav.entity.Role;
 import com.alexistdev.lmsfav.repository.RoleRepository;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,11 +24,12 @@ public class RoleRepositoryTest {
     @Autowired
     private RoleRepository roleRepository;
 
-    @Test
-    @DisplayName("test same name")
-    public void findByName() {
+    private Role role;
+
+    @BeforeEach
+    void SetUp(){
         Date now = new Date();
-        Role role = Role.builder()
+        role = Role.builder()
                 .name("admin")
                 .description("administrator")
                 .status("1")
@@ -38,7 +40,14 @@ public class RoleRepositoryTest {
                 .build();
         em.persist(role);
         em.flush();
+    }
+
+    @Test
+    @DisplayName("test find By Name")
+    public void findByNameTest() {
         var roleFound = roleRepository.findByName(role.getName()).orElse(new Role());
         Assertions.assertSame(role.getName(),roleFound.getName());
     }
+
+
 }
