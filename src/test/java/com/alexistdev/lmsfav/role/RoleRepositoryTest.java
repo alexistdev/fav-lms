@@ -13,7 +13,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Date;
-import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
