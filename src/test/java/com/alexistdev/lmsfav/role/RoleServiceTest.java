@@ -6,37 +6,41 @@ import com.alexistdev.lmsfav.repository.RoleRepository;
 import com.alexistdev.lmsfav.service.RoleServiceImplementation;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
+import java.util.Date;
 
 @ExtendWith(MockitoExtension.class)
 public class RoleServiceTest {
+    @InjectMocks
+    private RoleServiceImplementation roleService;
+
     @Mock
     private RoleRepository roleRepository;
 
-    private RoleServiceImplementation roleService;
 
-    private RoleRequest roleRequest;
+    @DisplayName("Testing for Role Service")
+    @Test
+    public void should_save_one_role() throws Exception {
 
-    @BeforeEach
-    public void setup() {
-        roleService = new RoleServiceImplementation(roleRepository);
-        roleRequest = RoleRequest.builder()
+        Date now = new Date();
+       final Role roleToSave = Role.builder()
                 .name("Admin")
                 .description("Administrator")
                 .status("1")
                 .createdBy("Admin")
                 .modifiedBy("Admin")
+                .createdAt(now)
+                .updatedAt(now)
                 .build();
-    }
 
-    @DisplayName("Testing for Role Service")
-    @Disabled
-    @Test
-    public void when_save_role_should_return_role_test() throws Exception {
+       lenient().when(roleRepository.save(any(Role.class))).thenReturn(roleToSave);
 
-            Role createdRole = roleService.add(roleRequest);
-            System.out.println(createdRole.getName());
-
+        final var actual = roleService.add(new RoleRequest());
+        assertThat(actual).usingRecursiveComparison().isEqualTo(roleToSave);
+        verify(roleRepository, times(1)).save(any(Role.class));
     }
 }

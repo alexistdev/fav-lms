@@ -11,6 +11,7 @@ import java.util.Date;
 @Entity
 @Table(name="roles")
 @NoArgsConstructor
+@AllArgsConstructor
 public class Role extends AuditEntity {
     private static final long serialVersionUID = 1L;
 
