@@ -7,6 +7,7 @@ import com.alexistdev.lmsfav.repository.RoleRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class RoleServiceImplementation implements RoleService{
@@ -39,11 +41,13 @@ public class RoleServiceImplementation implements RoleService{
                 .name(request.getName())
                 .description(request.getDescription())
                 .status(request.getStatus())
-                .createdBy(request.getCreatedBy())
-                .modifiedBy(request.getModifiedBy())
+                .createdBy("System")
+                .modifiedBy("System")
                 .createdAt(now)
                 .updatedAt(now)
                 .build();
+
+        log.info(request.getDescription());
 //
 //        Role role = new Role();
 //        role.setName(request.getName());

@@ -13,7 +13,4 @@ public class RoleRequest {
     public String name;
     public String description;
     public String status;
-
-    public String createdBy;
-    public String modifiedBy;
 }

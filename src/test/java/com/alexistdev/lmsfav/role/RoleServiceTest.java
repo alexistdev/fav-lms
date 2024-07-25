@@ -1,46 +1,33 @@
 package com.alexistdev.lmsfav.role;
 
 import com.alexistdev.lmsfav.dto.RoleRequest;
-import com.alexistdev.lmsfav.entity.Role;
-import com.alexistdev.lmsfav.repository.RoleRepository;
-import com.alexistdev.lmsfav.service.RoleServiceImplementation;
-import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
-import java.util.Date;
+import com.alexistdev.lmsfav.service.RoleService;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest
 public class RoleServiceTest {
-    @InjectMocks
-    private RoleServiceImplementation roleService;
 
-    @Mock
-    private RoleRepository roleRepository;
+    @Autowired
+    public RoleService roleService;
 
+    private RoleRequest roleRequest;
 
-    @DisplayName("Testing for Role Service")
+    @BeforeEach
+    void setUp() {
+        roleRequest = new RoleRequest();
+        roleRequest.setName("user");
+        roleRequest.setDescription("user");
+        roleRequest.setStatus("1");
+    }
+
     @Test
-    public void should_save_one_role() throws Exception {
-
-        Date now = new Date();
-       final Role roleToSave = Role.builder()
-                .name("Admin")
-                .description("Administrator")
-                .status("1")
-                .createdBy("Admin")
-                .modifiedBy("Admin")
-                .createdAt(now)
-                .updatedAt(now)
-                .build();
-
-       lenient().when(roleRepository.save(any(Role.class))).thenReturn(roleToSave);
-
-        final var actual = roleService.add(new RoleRequest());
-        assertThat(actual).usingRecursiveComparison().isEqualTo(roleToSave);
-        verify(roleRepository, times(1)).save(any(Role.class));
+    void it_should_save_role() throws Exception {
+        var result = roleService.add(roleRequest);
+        Assertions.assertSame(result.getName(), roleRequest.getName());
+        Assertions.assertNotNull(result);
     }
 }

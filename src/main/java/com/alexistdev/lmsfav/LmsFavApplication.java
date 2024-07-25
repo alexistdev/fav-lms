@@ -21,10 +21,10 @@ public class LmsFavApplication {
 		SpringApplication.run(LmsFavApplication.class, args);
 	}
 
-//	@Bean
-//	CommandLineRunner seedUser() {
-//		return args -> {
-//			RoleRequest role = new RoleRequest();
+	@Bean
+	CommandLineRunner seedUser() {
+		return args -> {
+			RoleRequest role = new RoleRequest();
 //			role.builder()
 //					.name("admin")
 //					.description("administrator")
@@ -32,9 +32,11 @@ public class LmsFavApplication {
 //					.createdBy("system")
 //					.modifiedBy("system")
 //					.build();
-//
-//			roleService.add(role);
-//		};
-//	}
+			role.setName("admin");
+			role.setDescription("Admin");
+			role.setStatus("1");
+			roleService.add(role);
+		};
+	}
 
 }
